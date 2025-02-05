@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QR Generator & Scanner</title>
+    <link rel="stylesheet" href="../static/css/style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Generador y Escáner de QR</h1>
+        
+        <div class="qr-generator">
+            <input type="text" id="qr-text" placeholder="Ingrese el texto o enlace">
+            <button onclick="generateQR()">Generar QR</button>
+            <img id="qr-image" src="" alt="Código QR" style="display:none;">
+        </div>
+        
+        <div class="qr-scanner">
+            <video id="qr-video" playsinline></video>
+            <button onclick="startScan()">Escanear QR</button>
+            <p id="qr-result"></p>
+        </div>
+    </div>
+    
+    <!-- Cargar las librerías de QR y escaneo -->
+    <script src="https://cdn.jsdelivr.net/npm/qrcode/build/qrcode.min.js"></script> <!-- Librería para generar QR -->
+    <script src="https://cdn.jsdelivr.net/npm/html5-qrcode/minified/html5-qrcode.min.js"></script> <!-- Librería para escanear QR -->
+    
+    <!-- Tu archivo de script.js -->
+    <script src="../static/js/script.js"></script>
+</body>
+</html>
