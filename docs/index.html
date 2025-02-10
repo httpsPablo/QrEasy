@@ -4,30 +4,45 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>QR Generator & Scanner</title>
-    <link rel="stylesheet" href="/style.css">
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <nav>
+        <ul>
+            <li><a href="https://webworkvision.store">Inicio</a></li>
+            <li><a href="https://webworkvision.store/sobrenosotros">Sobre Nosotros</a></li>
+            <li><a href="https://webworkvision.store/contacto">Contacto</a></li>
+        </ul>
+    </nav>
     <div class="container">
-        <h1>Generador y Escáner de QR</h1>
-        
-        <div class="qr-generator">
-            <input type="text" id="qr-text" placeholder="Ingrese el texto o enlace">
-            <button onclick="generateQR()">Generar QR</button>
-            <img id="qr-image" src="" alt="Código QR" style="display:none;">
+        <!-- Caja para Generar QR -->
+        <div class="box">
+            <h1>Generador de QR</h1>
+            <div class="qr-generator">
+                <input type="text" id="qr-text" placeholder="Ingrese el texto o enlace">
+                <button onclick="generateQR()">Generar QR</button>
+                <img id="qr-image" src="" alt="Código QR" style="display:none;">
+                <a id="download-link" style="display:none;" download>Descargar QR</a>
+            </div>
         </div>
-        
-        <div class="qr-scanner">
-            <video id="qr-video" playsinline></video>
-            <button onclick="startScan()">Escanear QR</button>
-            <p id="qr-result"></p>
+
+        <!-- Caja para Escanear QR -->
+        <div class="box">
+            <h1>Escáner de QR</h1>
+            <div class="qr-scanner-container">
+                <p>Incentiva a escanear un QR</p>
+                <video id="qr-video" playsinline></video>
+                <button onclick="startScan()">Escanear QR</button>
+                <p id="qr-result"></p>
+            </div>
         </div>
     </div>
-    
+
     <!-- Cargar las librerías de QR y escaneo -->
     <script src="https://cdn.jsdelivr.net/npm/qrcode/build/qrcode.min.js"></script> <!-- Librería para generar QR -->
     <script src="https://cdn.jsdelivr.net/npm/html5-qrcode/minified/html5-qrcode.min.js"></script> <!-- Librería para escanear QR -->
-    
+
     <!-- Tu archivo de script.js -->
-    <script src="/script.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>
