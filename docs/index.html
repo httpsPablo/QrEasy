@@ -3,6 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Genera y escanea códigos QR fácilmente con nuestra herramienta online. Crea enlaces, textos y mucho más con solo unos clics.">
+    <meta name="keywords" content="generador de QR, escanear QR, crear QR, código QR, herramientas QR, escaneo QR online, generador de código QR, escanear código QR, leer QR, crear código QR online, escanear código QR online, generar QR gratis, crear código QR rápido, código QR para enlaces, escanear QR móvil, generar QR para texto, herramienta QR, lector QR, generador QR en línea, generar QR con enlace, crear QR para sitios web, QR para Wi-Fi, QR para vCards, QR para contacto, generación de código QR fácil, app para generar QR, escanear QR con cámara, escanear QR en línea, QR en smartphone, escanear y generar QR, herramientas para escanear QR, generador de QR sin registro, generador de QR para marketing, aplicación para crear QR, generador QR para imágenes, generador QR para URL, crear código QR para promociones, generar QR de página web, escanear QR para información, crear QR para tiendas, escanear códigos QR rápidos, generación de código QR profesional, generación de QR para eventos">
+    <meta name="robots" content="index, follow">
+    
+    <!-- Open Graph meta tags -->
+    <meta property="og:title" content="Generador y Escáner de QR">
+    <meta property="og:description" content="Genera y escanea códigos QR fácilmente con nuestra herramienta online. Crea enlaces, textos y mucho más con solo unos clics.">
+    <meta property="og:url" content="https://webworkvision.store/qrgenerator">
+    <meta property="og:type" content="website">
+
+    <!-- google ads -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8509841319706096"
+    crossorigin="anonymous"></script>
+
     <title>QR Generator & Scanner</title>
     <link rel="stylesheet" href="style.css">
 </head>
@@ -10,8 +24,8 @@
     <nav>
         <ul>
             <li><a href="https://webworkvision.store">Inicio</a></li>
-            <li><a href="https://webworkvision.store/sobrenosotros">Sobre Nosotros</a></li>
-            <li><a href="https://webworkvision.store/contacto">Contacto</a></li>
+            <li><a href="https://webworkvision.store">Sobre Nosotros</a></li>
+            <li><a href="https://webworkvision.store">Contacto</a></li>
         </ul>
     </nav>
     <div class="container">
@@ -21,7 +35,7 @@
             <div class="qr-generator">
                 <input type="text" id="qr-text" placeholder="Ingrese el texto o enlace">
                 <button onclick="generateQR()">Generar QR</button>
-                <img id="qr-image" src="" alt="Código QR" style="display:none;">
+                <img id="qr-image" src="" alt="Código QR generado" style="display:none;">
                 <a id="download-link" style="display:none;" download>Descargar QR</a>
             </div>
         </div>
@@ -30,7 +44,7 @@
         <div class="box">
             <h1>Escáner de QR</h1>
             <div class="qr-scanner-container">
-                <p>Incentiva a escanear un QR</p>
+                <p>Incentiva a escanear un código QR para obtener información.</p>
                 <video id="qr-video" playsinline></video>
                 <button onclick="startScan()">Escanear QR</button>
                 <p id="qr-result"></p>
