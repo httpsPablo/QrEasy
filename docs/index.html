@@ -1,185 +1,166 @@
 <!DOCTYPE html>
 <html lang="es">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Generador de Códigos QR y Barras</title>
-    <link rel="stylesheet" href="/style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/jsbarcode@3.11.5/dist/JsBarcode.all.min.js"></script>
-  </head>
-  <body>
-    <div class="container">
-      <h1>Generador de Códigos</h1>
-      
-      <div class="tabs">
-        <button class="tab-btn active" data-tab="qr">Código QR</button>
-        <button class="tab-btn" data-tab="barcode">Código de Barras</button>
-        <button class="tab-btn" data-tab="scanner">Escáner</button>
-      </div>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Generador de Códigos QR y Barras</title>
+  <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/jsbarcode@3.11.5/dist/JsBarcode.all.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/qrcode/build/qrcode.min.js"></script>
+  <script src="https://unpkg.com/html5-qrcode/minified/html5-qrcode.min.js"></script>
+</head>
+<body>
+  <div class="container">
+    <h1>Generador de Códigos</h1>
+    
+    <div class="tabs">
+      <button class="tab-btn active" data-tab="qr">Código QR</button>
+      <button class="tab-btn" data-tab="barcode">Código de Barras</button>
+      <button class="tab-btn" data-tab="scanner">Escáner</button>
+    </div>
 
-      <div class="section active" id="qr-section">
-        <h2>Generar Código QR</h2>
-        <div class="generator">
-          <div class="input-group">
-            <input type="text" id="qr-text" placeholder="Escribe texto para generar QR">
-            <button id="generate-qr-btn" class="primary-btn">Generar QR</button>
-          </div>
-          <canvas id="qr-canvas"></canvas>
-          <button id="download-qr-btn" class="secondary-btn" style="display: none;">Descargar QR</button>
+    <div class="section active" id="qr-section">
+      <h2>Generar Código QR</h2>
+      <div class="generator">
+        <div class="input-group">
+          <input type="text" id="qr-text" placeholder="Escribe texto para generar QR">
+          <button id="generate-qr-btn" class="primary-btn">Generar QR</button>
         </div>
-      </div>
-
-      <div class="section" id="barcode-section">
-        <h2>Generar Código de Barras</h2>
-        <div class="generator">
-          <div class="input-group">
-            <input type="text" id="barcode-text" placeholder="Escribe números para generar código de barras">
-            <select id="barcode-type">
-              <option value="CODE128">Code 128</option>
-              <option value="EAN13">EAN-13</option>
-              <option value="CODE39">Code 39</option>
-            </select>
-            <button id="generate-barcode-btn" class="primary-btn">Generar Código</button>
-          </div>
-          <svg id="barcode"></svg>
-          <button id="download-barcode-btn" class="secondary-btn" style="display: none;">Descargar Código</button>
-        </div>
-      </div>
-
-      <div class="section" id="scanner-section">
-        <h2>Escanear Código</h2>
-        <div class="scanner">
-          <div id="reader"></div>
-          <div id="result"></div>
-        </div>
+        <canvas id="qr-canvas"></canvas>
+        <button id="download-qr-btn" class="secondary-btn" style="display: none;">Descargar QR</button>
       </div>
     </div>
-    <script>
-      import QRCode from 'qrcode';
-import { Html5QrcodeScanner } from 'html5-qrcode';
 
-// Configuración de pestañas
-const tabs = document.querySelectorAll('.tab-btn');
-const sections = document.querySelectorAll('.section');
+    <div class="section" id="barcode-section">
+      <h2>Generar Código de Barras</h2>
+      <div class="generator">
+        <div class="input-group">
+          <input type="text" id="barcode-text" placeholder="Escribe números para generar código de barras">
+          <select id="barcode-type">
+            <option value="CODE128">Code 128</option>
+            <option value="EAN13">EAN-13</option>
+            <option value="CODE39">Code 39</option>
+          </select>
+          <button id="generate-barcode-btn" class="primary-btn">Generar Código</button>
+        </div>
+        <svg id="barcode"></svg>
+        <button id="download-barcode-btn" class="secondary-btn" style="display: none;">Descargar Código</button>
+      </div>
+    </div>
 
-tabs.forEach(tab => {
-  tab.addEventListener('click', () => {
-    const target = tab.dataset.tab;
-    
-    // Actualizar botones
-    tabs.forEach(t => t.classList.remove('active'));
-    tab.classList.add('active');
-    
-    // Actualizar secciones
-    sections.forEach(section => {
-      section.classList.remove('active');
-      if (section.id === `${target}-section`) {
-        section.classList.add('active');
-      }
-    });
-  });
-});
+    <div class="section" id="scanner-section">
+      <h2>Escanear Código</h2>
+      <div class="scanner">
+        <div id="reader"></div>
+        <div id="result"></div>
+      </div>
+    </div>
+  </div>
+  
+  <script>
+    // Pestañas
+    const tabs = document.querySelectorAll('.tab-btn');
+    const sections = document.querySelectorAll('.section');
 
-// Configuración del generador QR
-const qrText = document.getElementById('qr-text');
-const generateQrBtn = document.getElementById('generate-qr-btn');
-const downloadQrBtn = document.getElementById('download-qr-btn');
-const canvas = document.getElementById('qr-canvas');
-
-generateQrBtn.addEventListener('click', () => {
-  const text = qrText.value;
-  if (text) {
-    QRCode.toCanvas(canvas, text, { 
-      width: 300,
-      margin: 2,
-      color: {
-        dark: '#2c3e50',
-        light: '#ffffff'
-      }
-    }, (error) => {
-      if (error) console.error('Error generando QR:', error);
-      else downloadQrBtn.style.display = 'block';
-    });
-  }
-});
-
-downloadQrBtn.addEventListener('click', () => {
-  const link = document.createElement('a');
-  link.download = 'codigo-qr.png';
-  link.href = canvas.toDataURL('image/png');
-  link.click();
-});
-
-// Configuración del generador de códigos de barras
-const barcodeText = document.getElementById('barcode-text');
-const barcodeType = document.getElementById('barcode-type');
-const generateBarcodeBtn = document.getElementById('generate-barcode-btn');
-const downloadBarcodeBtn = document.getElementById('download-barcode-btn');
-const barcodeElement = document.getElementById('barcode');
-
-generateBarcodeBtn.addEventListener('click', () => {
-  const text = barcodeText.value;
-  if (text) {
-    try {
-      window.JsBarcode('#barcode', text, {
-        format: barcodeType.value,
-        width: 2,
-        height: 100,
-        displayValue: true,
-        font: 'Poppins',
-        lineColor: '#2c3e50'
+    tabs.forEach(tab => {
+      tab.addEventListener('click', () => {
+        const target = tab.dataset.tab;
+        
+        tabs.forEach(t => t.classList.remove('active'));
+        tab.classList.add('active');
+        
+        sections.forEach(section => {
+          section.classList.remove('active');
+          if (section.id === `${target}-section`) {
+            section.classList.add('active');
+          }
+        });
       });
-      downloadBarcodeBtn.style.display = 'block';
-    } catch (error) {
-      alert('Error: Verifica que el texto sea válido para el tipo de código seleccionado');
+    });
+
+    // Generar Código QR
+    const qrText = document.getElementById('qr-text');
+    const generateQrBtn = document.getElementById('generate-qr-btn');
+    const downloadQrBtn = document.getElementById('download-qr-btn');
+    const qrCanvas = document.getElementById('qr-canvas');
+
+    generateQrBtn.addEventListener('click', () => {
+      const text = qrText.value;
+      if (text) {
+        QRCode.toCanvas(qrCanvas, text, { width: 300 }, (error) => {
+          if (error) console.error('Error generando QR:', error);
+          else downloadQrBtn.style.display = 'block';
+        });
+      }
+    });
+
+    downloadQrBtn.addEventListener('click', () => {
+      const link = document.createElement('a');
+      link.download = 'codigo-qr.png';
+      link.href = qrCanvas.toDataURL('image/png');
+      link.click();
+    });
+
+    // Generar Código de Barras
+    const barcodeText = document.getElementById('barcode-text');
+    const barcodeType = document.getElementById('barcode-type');
+    const generateBarcodeBtn = document.getElementById('generate-barcode-btn');
+    const downloadBarcodeBtn = document.getElementById('download-barcode-btn');
+    const barcode = document.getElementById('barcode');
+
+    generateBarcodeBtn.addEventListener('click', () => {
+      const text = barcodeText.value;
+      if (text) {
+        try {
+          JsBarcode("#barcode", text, {
+            format: barcodeType.value,
+            width: 2,
+            height: 100,
+            displayValue: true,
+            font: 'Poppins',
+            lineColor: '#2c3e50'
+          });
+          downloadBarcodeBtn.style.display = 'block';
+        } catch (error) {
+          alert('Error: Verifica que el texto sea válido para el tipo de código seleccionado');
+        }
+      }
+    });
+
+    downloadBarcodeBtn.addEventListener('click', () => {
+      const svgData = new XMLSerializer().serializeToString(barcode);
+      const canvas = document.createElement('canvas');
+      const ctx = canvas.getContext('2d');
+      const img = new Image();
+      
+      img.onload = () => {
+        canvas.width = img.width;
+        canvas.height = img.height;
+        ctx.drawImage(img, 0, 0);
+        
+        const link = document.createElement('a');
+        link.download = 'codigo-barras.png';
+        link.href = canvas.toDataURL('image/png');
+        link.click();
+      };
+      
+      img.src = 'data:image/svg+xml;base64,' + btoa(svgData);
+    });
+
+    // Escáner QR
+    const resultContainer = document.getElementById('result');
+    const html5QrcodeScanner = new Html5QrcodeScanner("reader", { fps: 10, qrbox: { width: 250, height: 250 } });
+
+    function onScanSuccess(decodedText) {
+      resultContainer.innerHTML = `<strong>Código escaneado:</strong><br>${decodedText}`;
     }
-  }
-});
 
-downloadBarcodeBtn.addEventListener('click', () => {
-  const svgData = new XMLSerializer().serializeToString(barcodeElement);
-  const canvas = document.createElement('canvas');
-  const ctx = canvas.getContext('2d');
-  const img = new Image();
-  
-  img.onload = () => {
-    canvas.width = img.width;
-    canvas.height = img.height;
-    ctx.drawImage(img, 0, 0);
-    
-    const link = document.createElement('a');
-    link.download = 'codigo-barras.png';
-    link.href = canvas.toDataURL('image/png');
-    link.click();
-  };
-  
-  img.src = 'data:image/svg+xml;base64,' + btoa(svgData);
-});
+    function onScanFailure(error) {
+      console.warn(`Fallo al escanear: ${error}`);
+    }
 
-// Configuración del escáner QR
-const resultContainer = document.getElementById('result');
-const html5QrcodeScanner = new Html5QrcodeScanner(
-  "reader",
-  { 
-    fps: 10, 
-    qrbox: { width: 250, height: 250 },
-    rememberLastUsedCamera: true,
-  }
-);
-
-function onScanSuccess(decodedText) {
-  resultContainer.innerHTML = `
-    <strong>Código escaneado:</strong><br>
-    ${decodedText}
-  `;
-}
-
-function onScanFailure(error) {
-  // console.warn(`Fallo al escanear: ${error}`);
-}
-
-html5QrcodeScanner.render(onScanSuccess, onScanFailure);
-    </script>
-  </body>
+    html5QrcodeScanner.render(onScanSuccess, onScanFailure);
+  </script>
+</body>
 </html>
