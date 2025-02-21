@@ -125,6 +125,7 @@ body {
   max-width: 1000px;
   margin: 0 auto;
   padding: 2rem;
+  padding-top:100px;
 }
 
 h1 {
