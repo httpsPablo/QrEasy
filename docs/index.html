@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
   <title>Generador de Códigos QR y Barras</title>
   <link rel="stylesheet" href="style.css">
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
@@ -24,17 +25,16 @@
 <body>
   <div class="container">
         <!-- Navbar -->
-    <nav class="navbar">
-        <div class="logo">
-            <a href="#" style="color: lightgreen; font-weight: bold; font-size: 32px;">WWV</a>
-        </div>
-        <ul class="nav-links">
-            <li><a href="https://webworkvision.store">Inicio</a></li>
-            <li><a href="#servicios">Servicios</a></li>
-            <li><a href="#proyectos">Proyectos</a></li>
-            <li><a href="#contacto">Contacto</a></li>
-        </ul>
-    </nav>
+        <nav class="navbar">
+          <div class="logo">WWV</div>
+          <div class="menu-toggle">&#9776;</div>
+          <ul class="nav-links">
+              <li><a href="https://webworkvision.store">Inicio</a></li>
+              <li><a href="https://webworkvision.store/#servicios">Servicios</a></li>
+              <li><a href="https://webworkvision.store/#proyectos">Proyectos</a></li>
+              <li><a href="https://webworkvision.store/#contacto">Contacto</a></li>
+          </ul>
+      </nav>
     <h1>Generador de Códigos</h1>
     
     <div class="tabs">
@@ -82,6 +82,12 @@
   </div>
   
   <script>
+    
+    document.querySelector(".menu-toggle").addEventListener("click", () => {
+    document.querySelector(".nav-links").classList.toggle("nav-active");
+});
+
+
     // Pestañas
     const tabs = document.querySelectorAll('.tab-btn');
     const sections = document.querySelectorAll('.section');

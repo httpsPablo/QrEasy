@@ -1,6 +1,11 @@
 import QRCode from 'qrcode';
 import { Html5QrcodeScanner } from 'html5-qrcode';
 
+document.querySelector(".menu-toggle").addEventListener("click", () => {
+  document.querySelector(".nav-links").classList.toggle("nav-active");
+});
+
+
 // Configuración de pestañas
 const tabs = document.querySelectorAll('.tab-btn');
 const sections = document.querySelectorAll('.section');
