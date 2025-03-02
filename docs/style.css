@@ -33,13 +33,8 @@ body {
     backdrop-filter: blur(10px);
 }
 
-<<<<<<< HEAD
- 
-@media (max-width: 605px) {
-=======
 
 @media (max-width: 530px) {
->>>>>>> a83f30f5c4cea969a41a7e626d788da9a43f39e9
     .navbar {
         flex-direction: column;
         align-items: flex-start;
