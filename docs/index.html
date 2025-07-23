@@ -34,10 +34,10 @@ crossorigin="anonymous"></script>
           <div class="logo">WWV</div>
           <div class="menu-toggle">&#9776;</div>
           <ul class="nav-links">
-              <li><a href="https://webworkvision.store">Inicio</a></li>
-              <li><a href="https://webworkvision.store/#servicios">Servicios</a></li>
-              <li><a href="https://webworkvision.store/#proyectos">Proyectos</a></li>
-              <li><a href="https://webworkvision.store/#contacto">Contacto</a></li>
+              <li><a href="https://webworkvision.shop">Inicio</a></li>
+              <li><a href="https://webworkvision.shop/#servicios">Servicios</a></li>
+              <li><a href="https://webworkvision.shop/#proyectos">Proyectos</a></li>
+              <li><a href="https://webworkvision.shop/#contacto">Contacto</a></li>
           </ul>
       </nav>
     <h1>Generador de Códigos</h1>
@@ -77,15 +77,6 @@ crossorigin="anonymous"></script>
       </div>
     </div>
 
-    <div class="section" id="scanner-section">
-      <h2>Escanear Código</h2>
-      <div class="scanner">
-        <div id="reader"></div>
-        <div id="result"></div>
-      </div>
-    </div>
-  </div>
-  
   <script>
     
     document.querySelector(".menu-toggle").addEventListener("click", () => {
@@ -182,19 +173,6 @@ crossorigin="anonymous"></script>
       img.src = 'data:image/svg+xml;base64,' + btoa(svgData);
     });
 
-    // Escáner QR
-    const resultContainer = document.getElementById('result');
-    const html5QrcodeScanner = new Html5QrcodeScanner("reader", { fps: 10, qrbox: { width: 250, height: 250 } });
-
-    function onScanSuccess(decodedText) {
-      resultContainer.innerHTML = `<strong>Código escaneado:</strong><br>${decodedText}`;
-    }
-
-    function onScanFailure(error) {
-      console.warn(`Fallo al escanear: ${error}`);
-    }
-
-    html5QrcodeScanner.render(onScanSuccess, onScanFailure);
   </script>
 </body>
 </html>
